@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Upload from "./pages/Upload";
 import Processing from "./pages/Processing";
 import Results from "./pages/Results";
+import Confirmation from "./pages/Confirmation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Upload />} />
           <Route path="/processing" element={<Processing />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/confirmation" element={<Confirmation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -34,10 +34,10 @@ const Processing = () => {
       );
     });
 
-    // Navigate after all steps
+    // Navigate to results after all steps
     timers.push(
       setTimeout(() => {
-        navigate("/");
+        navigate("/results");
       }, totalDelay + 500)
     );
 

@@ -64,10 +64,8 @@ const getProgressColor = (score: number) => {
 const Results = () => {
   const navigate = useNavigate();
 
-  const handleAction = (candidateId: string, action: string) => {
-    // Mock navigation placeholder - would go to confirmation screen
-    console.log(`Action: ${action} for candidate ${candidateId}`);
-    // navigate("/confirmation", { state: { candidateId, action } });
+  const handleAction = (candidateId: string, candidateName: string, action: string) => {
+    navigate("/confirmation", { state: { candidateName, action } });
   };
 
   const handleStartOver = () => {
@@ -172,7 +170,7 @@ const Results = () => {
                   <div className="flex gap-3">
                     <Button
                       className="flex-1"
-                      onClick={() => handleAction(candidate.id, "interview")}
+                      onClick={() => handleAction(candidate.id, candidate.name, "interview")}
                     >
                       <Calendar className="mr-2 h-4 w-4" />
                       Interview
@@ -180,7 +178,7 @@ const Results = () => {
                     <Button
                       variant="secondary"
                       className="flex-1"
-                      onClick={() => handleAction(candidate.id, "hold")}
+                      onClick={() => handleAction(candidate.id, candidate.name, "hold")}
                     >
                       <Pause className="mr-2 h-4 w-4" />
                       Hold
@@ -188,7 +186,7 @@ const Results = () => {
                     <Button
                       variant="outline"
                       className="flex-1"
-                      onClick={() => handleAction(candidate.id, "reject")}
+                      onClick={() => handleAction(candidate.id, candidate.name, "reject")}
                     >
                       <XCircle className="mr-2 h-4 w-4" />
                       Reject

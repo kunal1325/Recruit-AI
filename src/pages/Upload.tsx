@@ -11,46 +11,15 @@ const Upload = () => {
   const [jobFile, setJobFile] = React.useState<File[]>([]);
   const [resumes, setResumes] = React.useState<File[]>([]);
 
-const handleAnalyze = async () => {
-  navigate("/processing");
-
-  try {
-    const formData = new FormData();
-
-    // Case 1: user typed JD text
-    if (jobDescription.trim()) {
-      formData.append("job_description", jobDescription);
+const handleAnalyze = () => {
+  navigate("/processing", {
+    state: {
+      jobDescription,
+      jobFile,
+      resumes
     }
-
-    // Case 2: user uploaded JD file (PDF/DOC)
-    if (!jobDescription.trim() && jobFile.length > 0) {
-      formData.append("job_description", jobFile[0]); // send as file
-    }
-
-    // resumes (always files)
-    resumes.forEach((file) => {
-      formData.append("resumes", file);
-    });
-
-    const response = await fetch(
-      "http://localhost:5678/webhook-test/recruit-ai/analyze",
-      {
-        method: "POST",
-        body: formData, // important: NO headers
-      }
-    );
-
-    const data = await response.json();
-
-    sessionStorage.setItem("analysisResult", JSON.stringify(data));
-
-    navigate("/results");
-
-  } catch (error) {
-    console.error("Backend error:", error);
-  }
+  });
 };
-
 
   const isReady = (jobDescription.trim() || jobFile.length > 0) && resumes.length > 0;
 

@@ -24,7 +24,11 @@ const Results = () => {
 
   const stored = sessionStorage.getItem("analysisResult");
 
+  console.log("📦 RAW sessionStorage:", stored);
+
   if (!stored) {
+    console.log("❌ No analysisResult found");
+
     return (
       <div className="flex min-h-screen items-center justify-center text-muted-foreground">
         No results found. Please run analysis again.
@@ -32,15 +36,28 @@ const Results = () => {
     );
   }
 
-  // ✅ NEW backend format
-  // const candidates = JSON.parse(stored);
 
-  const parsed = JSON.parse(stored);
+    const parsed = JSON.parse(stored);
 
-// Handle both possible backend formats safely
-const candidates = Array.isArray(parsed)
-  ? parsed
-  : parsed.all_candidates || [];
+    let candidates = [];
+
+    // New format: { candidates: [...] }
+    if (parsed?.candidates && Array.isArray(parsed.candidates)) {
+      candidates = parsed.candidates;
+    }
+
+    // Old format: [ { candidates: [...] } ]
+    else if (Array.isArray(parsed) && parsed[0]?.candidates) {
+      candidates = parsed[0].candidates;
+    }
+
+    console.log("👥 CANDIDATES ARRAY:", candidates);
+    console.log("📏 CANDIDATES LENGTH:", candidates.length);
+
+
+    console.log("✅ PARSED DATA:", parsed);
+    console.log("📊 PARSED TYPE:", typeof parsed);
+    console.log("📊 IS ARRAY?:", Array.isArray(parsed));
 
 
   const handleAction = (candidateName: string, action: string) => {

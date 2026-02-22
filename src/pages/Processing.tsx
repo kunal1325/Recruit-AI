@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAnalysis } from "@/context/AnalysisContext";
 import {
   BrainCircuit,
   Loader2,
@@ -100,11 +101,25 @@ const Processing = () => {
           }
         );
 
+        // const data = await response.json();
+
+        // console.log("✅ Backend response:", data);
+
+        // sessionStorage.setItem("analysisResult", JSON.stringify(data));
+
         const data = await response.json();
 
-        console.log("✅ Backend response:", data);
+        console.log("FULL BACKEND DATA:", data); // should be array
 
-        sessionStorage.setItem("analysisResult", JSON.stringify(data));
+        sessionStorage.setItem(
+          "analysisResult",
+          JSON.stringify(data)
+        );
+
+
+        // const { setAnalysisResult } = useAnalysis();
+
+        // setAnalysisResult(data);
 
         setBackendFinished(true);
       } catch (error) {
